@@ -27,4 +27,4 @@ Iris flower data set has 3 classes, ecah of category has 50 samples with 4 featu
 
 
 #### Notes
- **Scaling** is important when you dealing iris data since width data were so subtle to differentiate. Thus if you want to use 'predict' function on your application, you have to know original data's scaling factors(mean / variance).
+ **Scaling** is important when you dealing iris data since width data were so subtle to differentiate. Thus if you want to use 'predict' function on your application, you have to know original data's scaling factors(mean / variance). You may find more info in this [page.](http://en.wikipedia.org/wiki/Normalization_(statistics))
