@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+IRIS Classification
+    - What is the Iris dataset? : http://en.wikipedia.org/wiki/Iris_flower_data_set
+    - Author: Jaehyun Ahn (jaehyunahn@sogang.ac.kr)
+    - Date: 2015. 05. 26
+"""
 from sklearn.cross_validation import cross_val_score
 from sklearn.datasets import load_iris
 from sklearn.preprocessing import scale
 from nolearn.dbn import DBN
 import numpy as np
-
-__author__ = 'Jaehyun Ahn'
 
 """
     Load and return the iris dataset (classification).
@@ -42,6 +46,7 @@ __author__ = 'Jaehyun Ahn'
     >>> list(data.target_names)
     ['setosa', 'versicolor', 'virginica']
 """
+
 iris = load_iris()
 print ("l. setosa's sepal length / sepal width / petal length / petal width")
 print (list(iris.data[2]))
@@ -57,12 +62,17 @@ DeepBeliefNet = DBN(
     learn_rates=0.3,
     epochs=30,
 )
-print(iris.data[51], iris.target[51])
+print("Class 1", iris.data[1], iris.target[1])
+# Standardize a dataset along any axis : Center to mean and component wise scale to unit variance.
 scaled_data = scale(iris.data)
 DeepBeliefNet.fit(scaled_data, iris.target)
-# [Error] Broadcast input array : The error message we look at in this section tells us that we
-#                                   violated the broadcasting rules.
+
+# X is training sample, which is iris.data[1] element: [[original], [scaled variable]]
+X = np.array([[4.9,  3. ,  1.4,  0.2], [-1.14301691e+00, -1.24957601e-01, -1.34127240e+00, -1.31297673e+00]])
+
+#print(scaled_data)
 print(DeepBeliefNet.predict(scaled_data))
+print(DeepBeliefNet.predict(X))
 
 scores = cross_val_score(DeepBeliefNet, scaled_data, iris.target, cv=10)
 print ("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() / 2))
